@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <title>Covid 19</title>
+        <style>
+            #content {
+                margin: 10px;
+                padding: 10px;
+            }
+            .kasus {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            .kasus .kasusChild {
+                width: 32%;
+                text-align: center;
+                background: rgb(238, 238, 238);
+                margin: 10px 5px;
+                padding: 20px 0;
+                font-size: 25px;
+                box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            .kasus .kasusChild .title {
+                margin: 0;
+            }
+            .kasus .kasusChild .data {
+                font-size: 30px;
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+            <div class="kasus">
+                <div class="kasusChild">
+                    <p class="title">Confirmed :</p>
+                    <p id="total" class="data"></p>
+                </div>
+                <div class="kasusChild">
+                    <p class="title">Recovered :</p>
+                    <p id="recovered" class="data"></p>
+                </div>
+                <div class="kasusChild">
+                    <p class="title">Deaths :</p>
+                    <p id="death" class="data"></p>
+                </div>
+                <div class="kasusChild" style="width: 48%;">
+                    <p class="title">Rate :</p>
+                    <p id="rate" class="data"></p>
+                </div>
+                <div class="kasusChild" style="width: 48%;">
+                    <p class="title">Active Case :</p>
+                    <p id="activecase" class="data"></p>
+                </div>
+            </div>
+        </div>
+        <script>
+            var total = document.getElementById('total')
+            var recovered = document.getElementById('recovered')
+            var death = document.getElementById('death')
+            function loadData(){
+                fetch("https://covid19.mathdro.id/api/countries/IDN/confirmed")
+                .then(response => response.json())
+                .then(data => {
+                    total.innerHTML = data[0].confirmed
+                    recovered.innerHTML = data[0].recovered
+                    death.innerHTML = data[0].deaths
+                    document.getElementById('activecase').innerHTML = data[0].active
+                    document.getElementById('rate').innerHTML = data[0].incidentRate
+                })
+            }
+
+            loadData()
+        </script>
+    </body>
+</html>
